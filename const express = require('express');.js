@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+const userId = 'Aayush Sinha';
+const email = 'aa6651@srmist.edu.in';
+const rollNumber = 'RA2111003020225';
 
 app.post('/bfhl', (req, res) => {
   const data = req.body.data;
@@ -15,7 +19,7 @@ app.post('/bfhl', (req, res) => {
       numbers.push(item);
     } else {
       alphabets.push(item);
-      if (item.toLowerCase() > highestAlphabet.toLowerCase()) {
+      if (item.toUpperCase() > highestAlphabet.toUpperCase()) {
         highestAlphabet = item;
       }
     }
@@ -23,19 +27,17 @@ app.post('/bfhl', (req, res) => {
 
   res.json({
     is_success: true,
-    user_id: 'Aayush Anand Sinha',
-    email: 'sinhaaayush2001@gmail.com',
-    roll_number: 'RA2111003020225',
-    numbers: numbers,
-    alphabets: alphabets,
+    user_id: userId,
+    email,
+    roll_number: rollNumber,
+    numbers,
+    alphabets,
     highest_alphabet: [highestAlphabet],
   });
 });
 
 app.get('/bfhl', (req, res) => {
-  res.json({
-    operation_code: 1,
-  });
+  res.json({ operation_code: 1 });
 });
 
 app.listen(port, () => {
